@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Formation IA Backend"
     API_V1_STR: str = "/api/v1"
-    DATABASE_URL: str = "postgresql+asyncpg://user:password@host:port/db"
+    DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost:5432/db" # Changed host to localhost
     JWT_SECRET: str = "YOUR_JWT_SECRET"  # Should be a strong random string
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
