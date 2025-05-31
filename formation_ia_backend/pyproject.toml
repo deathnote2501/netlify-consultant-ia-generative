@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "formation-ia-backend"
+version = "0.1.0"
+description = ""
+authors = ["google-labs-jules[bot] <161369871+google-labs-jules[bot]@users.noreply.github.com>"]
+readme = "README.md"
+packages = [
+    { include = "formation_ia_backend", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+fastapi = "^0.115.12"
+uvicorn = {extras = ["standard"], version = "^0.34.2"}
+sqlalchemy = "==2.0.*"
+asyncpg = "^0.30.0"
+alembic = "^1.16.1"
+pydantic = "==2.*"
+pydantic-settings = "^2.9.1"
+python-dotenv = "^1.1.0"
+fastapi-users = {version = "13.0.0", extras = ["jwt", "sqlalchemy"]}
+google-generativeai = "^0.8.5"
+sib-api-v3-sdk = "^7.6.0"
+stripe = "^12.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-asyncio = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
