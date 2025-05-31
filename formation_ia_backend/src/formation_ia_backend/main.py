@@ -4,7 +4,6 @@ import asyncio
 
 from formation_ia_backend.core.config import settings
 from formation_ia_backend.infrastructure.api.routers import slides as slides_router
-# Import auth routers
 from formation_ia_backend.infrastructure.api.routers.auth import (
     auth_router,
     register_router,
@@ -12,8 +11,9 @@ from formation_ia_backend.infrastructure.api.routers.auth import (
     reset_password_router,
     users_management_router
 )
-# Import chat router
 from formation_ia_backend.infrastructure.api.routers import chat as chat_router
+# Import email actions router
+from formation_ia_backend.infrastructure.api.routers import email_actions as email_actions_router
 
 from formation_ia_backend.infrastructure.database.session import AsyncSessionLocal
 from formation_ia_backend.application.services.slide_service import SlideService
@@ -61,15 +61,21 @@ async def health_check():
 app.include_router(slides_router.router, prefix=settings.API_V1_STR + "/slides", tags=["Slides"])
 
 # Mount Auth and User Management routers
-app.include_router(auth_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"]) # for /jwt/login, /jwt/logout
-app.include_router(register_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"]) # for /register
-app.include_router(verify_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"]) # for /verify, /request-verify-token
-app.include_router(reset_password_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"]) # for /forgot-password, /reset-password
-app.include_router(users_management_router, prefix=settings.API_V1_STR + "/users", tags=["Users"]) # for /me, /{id}
+app.include_router(auth_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"])
+app.include_router(register_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"])
+app.include_router(verify_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"])
+app.include_router(reset_password_router, prefix=settings.API_V1_STR + "/auth", tags=["Auth"])
+app.include_router(users_management_router, prefix=settings.API_V1_STR + "/users", tags=["Users"])
 
 # Mount Chat API router
 app.include_router(chat_router.router, prefix=settings.API_V1_STR + "/chat", tags=["Chat"])
 
+# Mount Email Actions API router
+app.include_router(
+    email_actions_router.router, # Assuming the router instance in email_actions.py is named 'router'
+    prefix=settings.API_V1_STR + "/email-actions",
+    tags=["Email Actions"]
+)
 
 if __name__ == "__main__":
     import uvicorn
